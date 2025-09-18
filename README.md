@@ -1,43 +1,45 @@
 Part 1 – Application Design
-
-Assignment: Advanced Mobile Application Development
 Task: Design a cross-platform mobile app for managing personal finances
 
-1. Overview
-
-The application is a cross-platform personal finance manager built with React Native and native modules (Swift for iOS, Kotlin for Android).
+Overview
+Cross-platform personal finance manager built with React Native and native modules (Swift for iOS, Kotlin for Android).
 
 Core Features:
+1.Add, edit, and delete income/expense entries.
+2.Categorize transactions (Food, Transport, Entertainment, etc.).
+3.Visualize spending trends with charts (bar/pie).
+4.Sync with backend API (mock or real).
+5.Offline-first support with local database.
 
-Add, edit, and delete income/expense entries.
+## 🏗 High-Level Architecture
 
-Categorize transactions (Food, Transport, Entertainment, etc.).
+- **Presentation Layer**
+  - React Native screens (JS/TS)
+  - UI components & navigation
 
-Visualize spending trends with charts (bar/pie).
+- **State Management**
+  - Redux Toolkit / React Context
+  - Middleware for async API calls
 
-Sync with backend API (mock or real).
+- **Data Layer**
+  - SQLite or Realm → offline-first storage
+  - AsyncStorage → small flags/tokens
 
-Offline-first support with local database.
+- **Sync & Network Layer**
+  - Axios for REST API communication
+  - Sync Engine for reconciliation (local ↔ server)
 
-2. High-Level Architecture
+- **Native Modules**
+  - **iOS (Swift):** Calendar & Reminders sync
+  - **Android (Kotlin):** Battery optimization state/events
 
-Presentation Layer → React Native screens (JS/TS), UI components, navigation.
+- **Backend (Mock/Real)**
+  - REST API for transactions, categories, authentication
 
-State Management → Redux Toolkit / React Context with middleware for async API calls.
+- **Logging & Monitoring**
+  - Sentry → crash reporting
+  - Flipper / Reactotron → debugging
 
-Data Layer → SQLite or Realm for offline-first storage; AsyncStorage for small flags/tokens.
-
-Sync & Network Layer → Axios + Sync Engine for reconciliation between local and server.
-
-Native Modules:
-
-iOS (Swift): Calendar & Reminders sync.
-
-Android (Kotlin): Battery optimization state/events.
-
-Backend (mock/real) → REST API (transactions, categories, auth).
-
-Logging & Monitoring → Sentry (crashes), Flipper/Reactotron (debugging).
 
 3. Technical Architecture Diagram
 ./assets/architecture-diagram.png)
