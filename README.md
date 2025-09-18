@@ -1,17 +1,22 @@
-Part 1 – Application Design
-Task: Design a cross-platform mobile app for managing personal finances
+# Part 1 – Application Design
 
-Overview
-Cross-platform personal finance manager built with React Native and native modules (Swift for iOS, Kotlin for Android).
+**Assignment:** Advanced Mobile Application Development  
+**Task:** Design a cross-platform mobile app for managing personal finances  
 
-Core Features:
-1.Add, edit, and delete income/expense entries.
-2.Categorize transactions (Food, Transport, Entertainment, etc.).
-3.Visualize spending trends with charts (bar/pie).
-4.Sync with backend API (mock or real).
-5.Offline-first support with local database.
+## 1. Overview
+cross-platform personal finance manager built with **React Native** and **native modules** (Swift for iOS, Kotlin for Android).  
 
-## 🏗 High-Level Architecture
+### Core Features
+- **Transaction Management**
+  - Add, edit, and delete income/expense entries
+  - Categorize transactions (Food, Transport, Entertainment, etc.)
+- **Data Visualization**
+  - View spending trends with charts (bar/pie)
+- **Sync & Storage**
+  - Sync with backend API (mock or real)
+  - Offline-first support with local database
+
+## 2. High-Level Architecture
 
 - **Presentation Layer**
   - React Native screens (JS/TS)
@@ -41,49 +46,55 @@ Core Features:
   - Flipper / Reactotron → debugging
 
 
-3. Technical Architecture Diagram
-./assets/architecture-diagram.png)
+## 3. Technical Architecture Diagram
 
-4. Data Flow
+The following diagram illustrates the overall system architecture of the application:  
 
-User adds/edits/deletes transaction → stored in local DB.
+![Technical Architecture](./assets/architecture-diagram.png)
 
-Redux/Context updates state → UI reflects immediately (optimistic update).
 
-Sync Engine pushes local changes to API and pulls new data from backend.
+## 4. Data Flow
 
-Charts read aggregated data from DB (category totals, monthly spends).
+- **User Actions**
+  - Add, edit, or delete transaction → stored in local database
 
-Native modules (Calendar/Battery) provide platform-level integrations.
+- **State Management**
+  - Redux / Context updates state
+  - UI reflects immediately (optimistic update)
 
-5. Offline Storage & Sync
+- **Sync Engine**
+  - Pushes local changes to API
+  - Pulls new/updated data from backend
 
-Storage: SQLite/Realm for transactions, categories. AsyncStorage for tokens/flags.
+- **Data Visualization**
+  - Charts read aggregated data from DB (category totals, monthly spends)
 
-Strategy:
+- **Native Modules**
+  - Calendar (iOS) integration
+  - Battery state/events (Android)
 
-Optimistic UI (immediate local write).
+## 5. Offline Storage & Sync
 
-Sync queue retries failed network requests.
+- **Storage**
+  - SQLite / Realm → transactions, categories
+  - AsyncStorage → tokens, flags
 
-Conflict resolution: last-write-wins using updatedAt.
+- **Strategy**
+  - **Optimistic UI** → immediate local write for smooth user experience
+  - **Sync Queue** → retries failed network requests automatically
+  - **Conflict Resolution** → last-write-wins using `updatedAt` timestamps
+  - **Background Sync** → triggers on app resume or when network reconnects
 
-Background sync on app resume/network reconnect.
 
-6. Error Handling & Debugging Strategy
+## 6. Error Handling & Debugging Strategy
 
-Error Handling:
+- **Error Handling**
+  - Axios interceptors for retries & token refresh
+  - User-friendly error messages for better UX
+  - Sync status flags in DB (`pending` / `synced` / `failed`)
 
-Axios interceptors for retries & token refresh.
+- **Debugging**
+  - Flipper / Reactotron → inspect network calls, logs, and local DB
+  - Sentry → crash & error reporting
+  - Structured logs with levels (`info`, `warn`, `error`)
 
-User-friendly error messages.
-
-Sync status flags in DB (pending/synced/failed).
-
-Debugging:
-
-Flipper/Reactotron for network, logs, DB inspection.
-
-Sentry for crash/error reporting.
-
-Structured logs with levels (info, warn, error).
